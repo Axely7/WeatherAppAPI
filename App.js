@@ -1,20 +1,34 @@
 
-import React from 'react';
-import {SafeAreaView,ScrollView,StatusBar,StyleSheet,Text,useColorScheme,View,} from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView,ScrollView,Keyboard,StyleSheet,Text,useColorScheme,View, TouchableWithoutFeedback} from 'react-native';
 import Formulario from './components/Formulario';
 
 
 
 const App = () => {
+
+  const [busqueda, guardarBusqueda] = useState({
+    ciudad: '',
+    pais: ''
+  });
+
+
+  const ocultarTeclado = () =>{
+    Keyboard.dismiss();
+  }
+
   
   return (
     <>
-    <View style={styles.app}>
-      <View style={styles.contenido}>
-        <Formulario></Formulario>
+    <TouchableWithoutFeedback onPress={ () => ocultarTeclado()}>
+      <View style={styles.app}>
+        <View style={styles.contenido}>
+          <Formulario busqueda={busqueda} 
+            guardarBusqueda = {guardarBusqueda}
+          ></Formulario>
+        </View>
       </View>
-    </View>
-    
+    </TouchableWithoutFeedback>
     </>
   );
 };
