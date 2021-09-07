@@ -3,7 +3,7 @@ import {Text, View, TextInput, StyleSheet, TouchableWithoutFeedback, Animated,
 Alert} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 
-const Formulario= ({busqueda, guardarBusqueda})=>{
+const Formulario= ({busqueda, guardarBusqueda, guardarConsultar})=>{
 
     const {pais, ciudad} = busqueda;
 
@@ -11,8 +11,19 @@ const Formulario= ({busqueda, guardarBusqueda})=>{
 
     const consultarClima = () =>{
         if(pais.trim() === '' || ciudad.trim() === ''){
-
+            mostrarAlerta();
+            return;
         }
+        // consultar la api
+        guardarConsultar(true);
+    }
+
+    const mostrarAlerta = () =>{
+        Alert.alert(
+            'Error',
+            'Agrega una ciudad y país para la búsqueda',
+            [{text: 'Entendido'}]
+        )
     }
 
     const animacionEntrada = () => {
@@ -82,7 +93,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         fontSize: 20,
         marginBottom:20,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: 'black'
     },
     btnBuscar:{
         marginTop: 50,
